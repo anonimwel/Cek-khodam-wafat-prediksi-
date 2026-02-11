@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>☠️ KHODAM + WAFAT CHECKER • Quantum V12.1</title>
+    
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ---------- RESET & VARIABLES ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0a0b0e;
+            --bg-secondary: #14171c;
+            --bg-card: #1e2128;
+            --accent: #6c5ce7;
+            --accent-glow: rgba(108, 92, 231, 0.4);
+            --danger: #ff6b6b;
+            --danger-glow: rgba(255, 107, 107, 0.4);
+            --success: #51cf66;
+            --warning: #fcc419;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b3b8;
+            --border: #2c2f36;
+            --gradient: linear-gradient(135deg, #6c5ce7 0%, #a463f5 100%);
+            --death-gradient: linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #1a1c24, #0a0b0e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-primary);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%236c5ce7"/></svg>');
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* ---------- QUANTUM HEADER ---------- */
+        .quantum-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 11, 14, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--accent);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-image: var(--gradient);
+            border-image-slice: 1;
+        }
+        
+        .quantum-header span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        /* ---------- MAIN CONTAINER ---------- */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 80px auto 40px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* ---------- CARD GLASSMORPHISM ---------- */
+        .card {
+            background: rgba(30, 33, 40, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            padding: 40px 32px;
+            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient);
+            border-radius: 42px;
+            z-index: -2;
+            opacity: 0.3;
+            filter: blur(10px);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 33, 40, 0.9);
+            border-radius: 40px;
+            z-index: -1;
+        }
+        
+        /* ---------- LOGO SECTION ---------- */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--gradient);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 8px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--accent-glow);
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .subtitle i {
+            color: var(--accent);
+        }
+        
+        .death-badge {
+            display: inline-block;
+            background: var(--death-gradient);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-top: 15px;
+            text-transform: uppercase;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+        
+        /* ---------- INPUT SECTION ---------- */
+        .input-group {
+            margin-bottom: 30px;
+        }
+        
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+        
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            color: var(--accent);
+            font-size: 20px;
+        }
+        
+        #nameInput {
+            width: 100%;
+            padding: 20px 20px 20px 60px;
+            background: rgba(10, 11, 14, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 18px;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        #nameInput:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+            background: rgba(10, 11, 14, 0.9);
+        }
+        
+        #nameInput::placeholder {
+            color: rgba(176, 179, 184, 0.5);
+            font-size: 16px;
+        }
+        
+        /* ---------- BUTTONS ---------- */
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 18px 24px;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(108, 92, 231, 0.5);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(108, 92, 231, 0.7);
+        }
+        
+        .btn-death {
+            background: var(--death-gradient);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(255, 107, 107, 0.5);
+        }
+        
+        .btn-death:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(255, 107, 107, 0.7);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* ---------- LOADING ANIMATION ---------- */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: rgba(10, 11, 14, 0.5);
+            border-radius: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(108, 92, 231, 0.2);
+            border-top: 3px solid var(--accent);
+            border-right: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        
+        .death-loader {
+            border: 3px solid rgba(255, 107, 107, 0.2);
+            border-top: 3px solid #ff6b6b;
+            border-right: 3px solid #ff6b6b;
+            box-shadow: 0 0 20px var(--danger-glow);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .loading-dots {
+            display: inline-block;
+        }
+        
+        /* ---------- RESULT CARD ---------- */
+        .result-card {
+            background: rgba(10, 11, 14, 0.7);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 24px;
+            padding: 28px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        .death-card {
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+        
+        .death-card::before {
+            background: var(--death-gradient);
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .result-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .death-icon {
+            background: var(--death-gradient);
+        }
+        
+        .result-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .result-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        .result-content strong {
+            color: white;
+        }
+        
+        .khodam-name {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+        
+        .death-date {
+            font-size: 32px;
+            font-weight: 900;
+            background: var(--death-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            animation: flicker 1.5s infinite;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.9; text-shadow: 0 0 30px rgba(255, 107, 107, 0.8); }
+            100% { opacity: 1; }
+        }
+        
+        /* ---------- STATS ---------- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.03);
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        /* ---------- DEATH COUNTDOWN ---------- */
+        .countdown-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px dashed #ff6b6b;
+            text-align: center;
+        }
+        
+        .countdown-text {
+            font-size: 14px;
+            color: #ff8787;
+            margin-bottom: 8px;
+        }
+        
+        .panik-button {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .panik-button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        /* ---------- FOOTER ---------- */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(176, 179, 184, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+        
+        .footer span {
+            color: var(--accent);
+        }
+        
+        /* ---------- HIDDEN ---------- */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+            }
+            .title {
+                font-size: 36px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- QUANTUM HEADER -->
+    <div class="quantum-header">
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+        <div>Prompt ༒ : Quantum V12.1 © Avrilino</div>
+        <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+    </div>
+    
+    <div class="container">
+        <!-- MAIN CARD -->
+        <div class="card">
+            <div class="logo-section">
+                <div class="badge">
+                    <i class="fas fa-bolt" style="margin-right: 6px;"></i> QUANTUM V12.1
+                </div>
+                <h1 class="title">☠️ KHODAM + WAFAT</h1>
+                <div class="subtitle">
+                    <i class="fas fa-shield-halbed"></i> © Avrilino 
+                    <i class="fas fa-skull" style="margin-left: 8px;"></i>
+                </div>
+                <div class="death-badge">
+                    <i class="fas fa-hourglass-half"></i> PREDIKSI KEMATIAN <i class="fas fa-hourglass-half"></i>
+                </div>
+            </div>
+            
+            <!-- INPUT SECTION -->
+            <div class="input-group">
+                <label class="input-label">
+                    <i class="fas fa-user" style="margin-right: 8px;"></i> MASUKIN NAMA LU, KONTOL!
+                </label>
+                <div class="input-wrapper">
+                    <i class="fas fa-search input-icon"></i>
+                    <input type="text" id="nameInput" placeholder="Contoh: Ucup Monyet" autocomplete="off">
+                </div>
+            </div>
+            
+            <!-- BUTTONS -->
+            <div class="button-group">
+                <button class="btn btn-primary" id="checkBtn">
+                    <i class="fas fa-magnifying-glass"></i>
+                    CEK KHODAM
+                </button>
+                <button class="btn btn-death" id="deathBtn">
+                    <i class="fas fa-skull"></i>
+                    CEK WAFAT
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-rotate-right"></i>
+                    RESET
+                </button>
+            </div>
+            
+            <!-- LOADING ANIMATION (HIDDEN DEFAULT) -->
+            <div id="loadingContainer" class="loading-container hidden">
+                <div id="loaderElement" class="loader"></div>
+                <div id="loadingTextElement" class="loading-text">
+                    <span class="loading-dots">🔮 NGUMPULIN KHODAM LU...</span>
+                </div>
+            </div>
+            
+            <!-- RESULT CARD (HIDDEN DEFAULT) -->
+            <div id="resultContainer" class="result-card hidden">
+                <div id="resultHeaderIcon" class="result-header">
+                    <div id="resultIconElement" class="result-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <div id="resultTitleElement" class="result-title">
+                        KHODAM DETEKSI!
+                    </div>
+                </div>
+                <div id="resultContent" class="result-content">
+                    <!-- DYNAMIC CONTENT -->
+                </div>
+                
+                <!-- PANIK BUTTON (HIDDEN DEFAULT) -->
+                <div id="panikContainer" class="hidden">
+                    <button id="panikBtn" class="panik-button" onclick="playPanikSound()">
+                        <i class="fas fa-heartbeat"></i> GW PANIK! BERAPA LAMA LAGI? <i class="fas fa-heartbeat"></i>
+                    </button>
+                    <div id="countdownDisplay" style="margin-top: 15px; color: #ff8787; font-size: 18px; font-weight: bold;"></div>
+                </div>
+            </div>
+            
+            <!-- FOOTER -->
+            <div class="footer">
+                <div>━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+                <div style="margin: 16px 0;">
+                    <i class="fa-copyright"></i> Copyright © Avrilino 
+                </div>
+                <div style="display: flex; justify-content: center; gap: 16px;">
+                    <span><i class="fas fa-bolt"></i> No Filter</span>
+                    <span><i class="fas fa-skull"></i> UU ITE? Makan tuh</span>
+                    <span><i class="fas fa-hourglass-end"></i> Wafat Predictor</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ------------------------------------------------------
+        // QUANTUM V12.1 - KHODAM + WAFAT PREDICTOR ENGINE
+        // COPYRIGHT © AVRILINO - FITUR WAFAT = PANIK ALERT!
+        // ------------------------------------------------------
+        
+        // ============ KHODAM DATABASE ============
+        // SETAN LUCU + BARANG RUMAH + MEREK HP + MAKANAN
+        const kodamDatabase = [
+            // SETAN LUCU
+            { name: "Khodam Genderuwo Kosmetik", element: "💄 Makeup", level: "Legend", power: 8500 },
+            { name: "Khodam Pocong Lari Pagi", element: "🏃 Lari", level: "Pro", power: 4300 },
+            { name: "Khodam Tuyul Jago Saham", element: "💰 Uang", level: "Legend", power: 9900 },
+            { name: "Khodam Kuntilanak TikToker", element: "📱 Sosmed", level: "Master", power: 7200 },
+            { name: "Khodam Wewe Gombal Jualan", element: "🧺 Kain", level: "Menengah", power: 2100 },
+            { name: "Khodam Sundel Bolang", element: "🌪️ Angin", level: "Pro", power: 3800 },
+            { name: "Khodam Beliau Gaul", element: "🕶️ Keren", level: "Legend", power: 9500 },
+            { name: "Khodam Jeruk Purut", element: "🍊 Buah", level: "Noob", power: 150 },
+            { name: "Khodam Leak Chef", element: "🍳 Masak", level: "Master", power: 6700 },
+            { name: "Khodam Buto Ijo Freelancer", element: "💼 Kerja", level: "Pro", power: 4100 },
+            
+            // BARANG RUMAH
+            { name: "Khodam Setrika Gosong", element: "🔥 Panas", level: "Noob", power: 250 },
+            { name: "Khodam Kipas Angin Miring", element: "🌪️ Angin", level: "Pemula", power: 180 },
+            { name: "Khodam Rice Cooker Nasi", element: "🍚 Makanan", level: "Master", power: 6300 },
+            { name: "Khodam Dispenser Bocor", element: "💧 Air", level: "Menengah", power: 890 },
+            { name: "Khodam Magic Com 2 Liter", element: "🍚 Nasi", level: "Pro", power: 3400 },
+            { name: "Khodam Kulkas 2 Pintu", element: "❄️ Dingin", level: "Legend", power: 7800 },
+            { name: "Khodam Televisi Tabung", element: "📺 Jadul", level: "Noob", power: 99 },
+            { name: "Khodam Remote TV Ilang", element: "📱 Nyari", level: "Pemula", power: 50 },
+            { name: "Khodam Ember Bocor", element: "💧 Air", level: "Noob", power: 30 },
+            { name: "Khodam Sapu Lidi", element: "🧹 Bersih", level: "Pemula", power: 120 },
+            
+            // MEREK HP
+            { name: "Khodam Nokia 3310", element: "💪 Anti Pecah", level: "Legend", power: 9999 },
+            { name: "Khodam Samsung J2 Prime", element: "📱 Lemot", level: "Noob", power: 10 },
+            { name: "Khodam iPhone 4", element: "🍏 Jadul", level: "Pemula", power: 200 },
+            { name: "Khodam Xiaomi Redmi Note", element: "⚡ Cepat", level: "Pro", power: 4500 },
+            { name: "Khodam Oppo Camera Phone", element: "📸 Selfie", level: "Master", power: 6100 },
+            { name: "Khodam Vivo Nge-game", element: "🎮 Gaming", level: "Pro", power: 5200 },
+            { name: "Khodam Sony Ericsson", element: "🎵 Walkman", level: "Menengah", power: 800 },
+            { name: "Khodam Blackberry", element: "⌨️ QWERTY", level: "Legacy", power: 750 },
+            { name: "Khodam Asus ROG", element: "💀 Gaming", level: "Legend", power: 9200 },
+            { name: "Khodam Google Pixel", element: "🤖 AI", level: "Master", power: 8100 },
+            
+            // LUCU NGACO
+            { name: "Khodam Indomie Goreng", element: "🍜 Enak", level: "Legend", power: 8900 },
+            { name: "Khodam Mie Sedap", element: "🍲 Mantap", level: "Master", power: 8700 },
+            { name: "Khodam Kopi Kapal Api", element: "☕ Pahit", level: "Pro", power: 3900 },
+            { name: "Khodam Susu Beruang", element: "🥛 Sehat", level: "Menengah", power: 1500 },
+            { name: "Khodam Silverqueen", element: "🍫 Manis", level: "Master", power: 5400 },
+            { name: "Khodam Beng-beng", element: "🍫 Shareit", level: "Pro", power: 3200 },
+            { name: "Khodam Botol Aqua", element: "💧 Air", level: "Noob", power: 25 },
+            { name: "Khodam Sandal Jepit", element: "👡 Nyaman", level: "Menengah", power: 380 },
+            { name: "Khodam Emak-emak Pasar", element: "👩 Tawar", level: "Legend", power: 9400 },
+            { name: "Khodam Bapak-bapak RT", element: "👨 Arisan", level: "Master", power: 7000 },
+            
+            // SETAN VERSI LUCU
+            { name: "Khodam Genderuwo Baper", element: "💔 Galau", level: "Pro", power: 3600 },
+            { name: "Khodam Pocong Jomblo", element: "🧡 Cinta", level: "Menengah", power: 1900 },
+            { name: "Khodam Tuyul Tajir", element: "💰 Sultan", level: "Legend", power: 9800 },
+            { name: "Khodam Kuntilanak Cantik", element: "💋 Glamour", level: "Master", power: 6900 },
+            { name: "Khodam Wewe Gombal Galau", element: "🌧️ Sedih", level: "Pro", power: 3300 },
+            { name: "Khodam Leak Gen Z", element: "🧑‍🎤 Kekinian", level: "Master", power: 5900 },
+            
+            // MAKANAN & MINUMAN
+            { name: "Khodam Nasi Padang", element: "🍛 Rendang", level: "Legend", power: 9100 },
+            { name: "Khodam Sate Padang", element: "🍢 Lontong", level: "Master", power: 7600 },
+            { name: "Khodam Bakso Tusuk", element: "🍡 Pentol", level: "Pro", power: 4000 },
+            { name: "Khodam Seblak Jacuk", element: "🍲 Kerupuk", level: "Master", power: 6300 },
+            { name: "Khodam Es Doger", element: "🍧 Alpukat", level: "Pro", power: 2800 },
+            
+            // MEREK HP LAGI
+            { name: "Khodam iPhone 15 Pro Max", element: "💎 Mahal", level: "Legend", power: 9500 },
+            { name: "Khodam Samsung S24 Ultra", element: "✍️ S Pen", level: "Legend", power: 9300 },
+            { name: "Khodam Xiaomi Poco F5", element: "🚀 Kenceng", level: "Master", power: 7900 },
+            { name: "Khodam Infinix Note", element: "🔋 Besar", level: "Menengah", power: 1900 },
+            
+            // SETAN & MITOS
+            { name: "Khodam Nyi Roro Kidul", element: "🌊 Laut", level: "Mythic", power: 9999 },
+            { name: "Khodam Semar", element: "🎭 Punokawan", level: "Mythic", power: 9700 },
+            { name: "Khodam Petruk", element: "😆 Lucu", level: "Legend", power: 8500 }
+        ];
+        
+        // ELEMENTS
+        const elements = [
+            '💄 Makeup', '💰 Uang', '📱 Sosmed', '🧺 Kain', '🍊 Buah', 
+            '🍳 Masak', '💼 Kerja', '🔥 Panas', '🍚 Nasi', '❄️ Dingin',
+            '📺 Jadul', '🧹 Bersih', '🚪 Logam', '🚿 Mandi', '💪 Anti Pecah',
+            '📸 Selfie', '🎮 Gaming', '🎵 Walkman', '🤖 AI', '🍜 Enak',
+            '☕ Pahit', '🥛 Sehat', '🍫 Manis', '👩 Tawar', '🏠 Hemat',
+            '💤 Capek', '💔 Galau', '🧡 Cinta', '💋 Glamour', '🌧️ Sedih',
+            '🧑‍🎤 Kekinian', '🦋 Anggun', '💚 Ramah', '🍛 Rendang', '🍢 Pentol',
+            '🥟 Bumbu', '🧊 Segar', '💎 Mahal', '✍️ S Pen', '🚀 Kenceng',
+            '✨ Glow', '🔋 Besar', '🌊 Laut', '🎭 Punokawan', '😆 Lucu'
+        ];
+        
+        const levels = [
+            'Noob', 'Pemula', 'Menengah', 'Pro', 'Master', 'Legend', 'Mythic'
+        ];
+        
+       // BULAN DALAM BAHASA INDONESIA
+        const bulanIndo = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        
+        // GET DOM ELEMENTS
+        const nameInput = document.getElementById('nameInput');
+        const checkBtn = document.getElementById('checkBtn');
+        const deathBtn = document.getElementById('deathBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const loaderElement = document.getElementById('loaderElement');
+        const loadingTextElement = document.getElementById('loadingTextElement');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultIconElement = document.getElementById('resultIconElement');
+        const resultTitleElement = document.getElementById('resultTitleElement');
+        const resultContent = document.getElementById('resultContent');
+        const panikContainer = document.getElementById('panikContainer');
+        const countdownDisplay = document.getElementById('countdownDisplay');
+        
+        // VARIABEL GLOBAL BUAT NYIMPEN TANGGAL WAFAT
+        let currentDeathDate = null;
+        let currentDeathTimestamp = null;
+        
+        // ============ FUNGSI RANDOM KHODAM ============
+        function getRandomKodam() {
+            return kodamDatabase[Math.floor(Math.random() * kodamDatabase.length)];
+        }
+        
+        // ============ FUNGSI GENERATE TANGGAL WAFAT ============
+        // INI YANG BIKIN PANIK! TAHUN DEPAN ATAU TAHUN INI, BUKAN TAHUN LALU!
+        function generateDeathDate() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
+            
+            // 70% kemungkinan tahun ini, 30% tahun depan (BIKIN PANIK!)
+            const year = Math.random() < 0.7 ? currentYear : currentYear + 1;
+            
+            let month, day;
+            
+            if (year === currentYear) {
+                // Kalo tahun ini, tanggal harus SETELAH hari ini (masa iya udah lewat?)
+                do {
+                    month = Math.floor(Math.random() * 12);
+                    const maxDay = new Date(year, month + 1, 0).getDate();
+                    day = Math.floor(Math.random() * maxDay) + 1;
+                } while (new Date(year, month, day) <= today);
+            } else {
+                // Kalo tahun depan, bebas asal jangan tahun kemarin
+                month = Math.floor(Math.random() * 12);
+                const maxDay = new Date(year, month + 1, 0).getDate();
+                day = Math.floor(Math.random() * maxDay) + 1;
+            }
+            
+            const deathDate = new Date(year, month, day);
+            
+            return {
+                date: deathDate,
+                day: day,
+                month: bulanIndo[month],
+                year: year,
+                formatted: `${day} ${bulanIndo[month]} ${year}`,
+                daysLeft: Math.ceil((deathDate - today) / (1000 * 60 * 60 * 24))
+            };
+        }
+        
+        // ============ FUNGSI HITUNG HARI ============
+        function calculateDaysLeft(deathDate) {
+            const today = new Date();
+            return Math.ceil((deathDate - today) / (1000 * 60 * 60 * 24));
+        }
+        
+        // ============ FUNGSI CEK KHODAM ============
+        function checkKhodam() {
+            const name = nameInput.value.trim();
+            
+            if (name === '') {
+                alert('🔴 ISI NAMA DULU, BANGSAT!');
+                return;
+            }
+            
+            // SET LOADING MODE
+            resultContainer.classList.add('hidden');
+            loadingContainer.classList.remove('hidden');
+            loaderElement.className = 'loader';
+            loadingTextElement.innerHTML = '<span class="loading-dots">🔮 NGUMPULIN KHODAM LU...</span>';
+            
+            // SIMULASI LOADING
+            setTimeout(() => {
+                loadingContainer.classList.add('hidden');
+                
+                const kodam = getRandomKodam();
+                const randomElement = elements[Math.floor(Math.random() * elements.length)];
+                const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+                const power = kodam.power + Math.floor(Math.random() * 500);
+                
+                // SET RESULT STYLE
+                resultContainer.className = 'result-card';
+                resultIconElement.className = 'result-icon';
+                resultIconElement.innerHTML = '<i class="fas fa-dragon"></i>';
+                resultTitleElement.innerHTML = '🐉 KHODAM DETEKSI!';
+                
+                // BUILD RESULT HTML
+                const resultHTML = `
+                    <div style="margin-bottom: 16px;">
+                        <span style="color: #b0b3b8;">👤 NAMA</span><br>
+                        <strong style="font-size: 24px; color: white;">${name.toUpperCase()}</strong>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                        <i class="fas fa-dragon" style="color: #6c5ce7; font-size: 32px;"></i>
+                        <div>
+                            <span style="color: #b0b3b8;">🐲 KHODAM LU</span><br>
+                            <span style="font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #6c5ce7 0%, #a463f5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                ${kodam.name}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">${randomElement}</div>
+                            <div class="stat-label">ELEMEN</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${randomLevel}</div>
+                            <div class="stat-label">LEVEL</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">⚡ ${power}</div>
+                            <div class="stat-label">POWER</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 24px; padding: 16px; background: rgba(108, 92, 231, 0.1); border-radius: 16px; border-left: 4px solid #6c5ce7;">
+                        <span style="color: #6c5ce7; font-weight: 700;">STATUS:</span> 
+                        <span style="color: #51cf66;">🔓 TERDETEKSI - QUANTUM V12.1</span>
+                    </div>
+                `;
+                
+                resultContent.innerHTML = resultHTML;
+                panikContainer.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+                
+            }, 2000);
+        }
+        
+        // ============ FUNGSI CEK WAFAT ============
+        function checkDeath() {
+            const name = nameInput.value.trim();
+            
+            if (name === '') {
+                alert('🔴 ISI NAMA DULU, BANGSAT!');
+                return;
+            }
+            
+            // SET LOADING MODE - DEATH STYLE
+            resultContainer.classList.add('hidden');
+            loadingContainer.classList.remove('hidden');
+            loaderElement.className = 'loader death-loader';
+            loadingTextElement.innerHTML = '<span class="loading-dots">☠️ LAGI NGITUNG HARI KEMATIAN LU...</span>';
+            
+            // SIMULASI LOADING
+            setTimeout(() => {
+                loadingContainer.classList.add('hidden');
+                
+                // GENERATE TANGGAL WAFAT
+                const death = generateDeathDate();
+                currentDeathDate = death;
+                currentDeathTimestamp = death.date;
+                
+                // SET RESULT STYLE - DEATH MODE
+                resultContainer.className = 'result-card death-card';
+                resultIconElement.className = 'result-icon death-icon';
+                resultIconElement.innerHTML = '<i class="fas fa-skull"></i>';
+                resultTitleElement.innerHTML = '☠️ PREDIKSI WAFAT';
+                
+                // STATUS PANIK BERDASARKAN WAKTU
+                let panicStatus = '';
+                let panicColor = '';
+                
+                if (death.daysLeft <= 7) {
+                    panicStatus = '⚠️ MINGGU INI! SIAP-SIAP! ⚠️';
+                    panicColor = '#ff6b6b';
+                } else if (death.daysLeft <= 30) {
+                    panicStatus = '😱 BULAN DEPAN! PANIK GAK LO?';
+                    panicColor = '#ff8787';
+                } else if (death.daysLeft <= 90) {
+                    panicStatus = '😨 3 BULAN LAGI... MULAI TOBAT';
+                    panicColor = '#ffa94d';
+                } else if (death.daysLeft <= 365) {
+                    panicStatus = '😐 TAHUN INI MASIH AMAN... KAYANYA';
+                    panicColor = '#fcc419';
+                } else {
+                    panicStatus = '😎 TAHUN DEPAN! LU MASIH PANJANG UMUR';
+                    panicColor = '#51cf66';
+                }
+                
+                // BUILD RESULT HTML - DEATH VERSION
+                const resultHTML = `
+                    <div style="margin-bottom: 16px;">
+                        <span style="color: #b0b3b8;">👤 NAMA</span><br>
+                        <strong style="font-size: 24px; color: white;">${name.toUpperCase()}</strong>
+                    </div>
+                    
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <span style="color: #b0b3b8;">☠️ LU AKAN WAFAT PADA</span><br>
+                        <div class="death-date">
+                            ${death.formatted}
+                        </div>
+                        <div style="font-size: 18px; color: white; margin-top: 5px;">
+                            <i class="fas fa-hourglass-half"></i> ${death.daysLeft} HARI LAGI <i class="fas fa-hourglass-half"></i>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 24px; padding: 20px; background: rgba(255, 107, 107, 0.15); border-radius: 16px; text-align: center; border: 1px solid #ff6b6b;">
+                        <span style="color: ${panicColor}; font-weight: 900; font-size: 18px;">
+                            ${panicStatus}
+                        </span>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 16px; font-size: 14px; color: #b0b3b8; text-align: center;">
+                        <i class="fas fa-info-circle"></i> Prediksi ini berdasarkan perhitungan Quantum V12.1<br>
+                        Akurasi: 💀💀💀💀💀 (5 dari 5 mayat)
+                    </div>
+                `;
+                
+                resultContent.innerHTML = resultHTML;
+                
+                // TAMPILIN TOMBOL PANIK
+                panikContainer.classList.remove('hidden');
+                countdownDisplay.innerHTML = '';
+                
+                resultContainer.classList.remove('hidden');
+                
+            }, 2500); // LOADING LEBIH LAMA BIAR DRAMA
+        }
+        
+        // ============ FUNGSI HITUNG MUNDUR PANIK ============
+        window.playPanikSound = function() {
+            if (!currentDeathTimestamp) return;
+            
+            const daysLeft = calculateDaysLeft(currentDeathTimestamp);
+            const deathDate = currentDeathDate;
+            
+            let message = '';
+            if (daysLeft <= 0) {
+                message = '☠️ UDAH MATI LU KONTOL! ☠️';
+            } else if (daysLeft === 1) {
+                message = '⚠️⚠️⚠️ BESOK LU MATI! CUMA 1 HARI LAGI! ⚠️⚠️⚠️';
+            } else {
+                message = `😱😱😱 SISA ${daysLeft} HARI LAGI! 😱😱😱`;
+            }
+            
+            countdownDisplay.innerHTML = message;
+            countdownDisplay.style.animation = 'pulse 1s infinite';
+            
+            // GETARAN DI HP KALO BISA
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200]);
+            }
+            
+            // ALERT PANIK (biar makin serem)
+            if (daysLeft <= 7) {
+                setTimeout(() => {
+                    alert('⚠️⚠️⚠️ WARNING! KURANG DARI 7 HARI! ⚠️⚠️⚠️');
+                }, 100);
+            }
+        };
+        
+        // ============ FUNGSI RESET ============
+        function resetForm() {
+            nameInput.value = '';
+            resultContainer.classList.add('hidden');
+            loadingContainer.classList.add('hidden');
+            currentDeathDate = null;
+            currentDeathTimestamp = null;
+            countdownDisplay.innerHTML = '';
+        }
+        
+        // ============ EVENT LISTENERS ============
+        checkBtn.addEventListener('click', checkKhodam);
+        deathBtn.addEventListener('click', checkDeath);
+        resetBtn.addEventListener('click', resetForm);
+        
+        // ENTER KEY
+        nameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkKhodam(); // DEFAULT CEK KHODAM
+            }
+        });
+        
+        // INITIAL HIDE
+        resultContainer.classList.add('hidden');
+        loadingContainer.classList.add('hidden');
+        
+        // DEBUG
+        console.log('☠️ QUANTUM V12.1 - KHODAM + WAFAT PREDICTOR SIAP!');
+        console.log('😹 FITUR WAFAT = PANIK ALERT! BIKIN JANTUNG DEGDEGAN!');
+    </script>
+</body>
+</html>
